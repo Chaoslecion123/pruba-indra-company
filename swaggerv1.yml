@@ -1,0 +1,40 @@
+swagger: "2.0"
+info:
+  version: "2021-28-11T15:25:41Z"
+  title: "dev-back-ms-films"
+host: "tuzs37gwhc.execute-api.us-east-1.amazonaws.com"
+basePath: "/dev"
+schemes:
+- "https"
+paths:
+  /v1/films/list:
+    get:
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "Lista todas las peliculas guardadas en la Base de Datos."
+        required: true
+        type: "integer"
+      responses: 
+        "200":
+          description: ""
+  /v1/film/add:
+    post:
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "Consulta por Id de la pelicula que se guardada en la Base de Datos"
+        required: true
+        type: "integer"
+      responses: 
+        "200":
+          description: ""
+  /v1/film:
+    get:
+      parameters:
+        description: "Consulta de la pelicula por ID, consume el SWAPI."
+        required: true
+        type: "integer"
+      responses: 
+        "200":
+          description: ""

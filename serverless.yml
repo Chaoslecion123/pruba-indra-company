@@ -1,0 +1,68 @@
+service: sls-zoluxiones
+
+custom:
+  tableName: "films-table-${self:provider.stage}"
+  dynamodb:
+    start:
+      migrate: true
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["FilmsDynamoDBTable2", "Arn"] }
+  environment:
+    FILMS_TABLE: ${self:custom.tableName}
+
+functions:
+  create:
+    handler: api/create.handler
+    events:
+      - http:
+          method: post
+          path: v1/film/add
+  get-film:
+    handler: api/get-film.handler
+    events:
+      - http:
+          method: get
+          path: v1/film
+  list:
+    handler: api/list.handler
+    events:
+      - http:
+          method: get
+          path: v1/films/list
+
+resources:
+  Resources:
+    FilmsDynamoDBTable2:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName}
+
