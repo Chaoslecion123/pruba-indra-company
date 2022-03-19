@@ -2,13 +2,10 @@
 const AWS = require("aws-sdk");
 AWS.config.update({ region: "us-east-1" });
 
-const { jsonBodyParser } = require("middy/middlewares");
 const middy = require("middy");
 const util = require('../util');
 
-
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
-
 const tableName = process.env.FILMS_TABLE;
 
 const listFilms = async (event) => {
@@ -38,6 +35,6 @@ const listFilms = async (event) => {
   }
 };
 
-const handler = middy(listFilms).use(jsonBodyParser());
+const handler = middy(listFilms)
 
 module.exports = { handler };

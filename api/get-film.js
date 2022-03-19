@@ -2,17 +2,16 @@
 const AWS = require("aws-sdk");
 AWS.config.update({ region: "us-east-1" });
 
-const { jsonBodyParser } = require("middy/middlewares");
 const util = require('../util');
 const middy = require("middy");
 const axios = require("axios");
 
-
-
-
 const getFilm = async (event) => {
   try {
     const parameters = event.queryStringParameters;
+    console.log('*** ** ***')
+    console.log(parameters)
+    console.log('*** ** ***')
     let data = await axios.get(
       `https://swapi.py4e.com/api/films/${parameters.id}`
     );
@@ -33,6 +32,6 @@ const getFilm = async (event) => {
   }
 };
 
-const handler = middy(getFilm).use(jsonBodyParser());
+const handler = middy(getFilm);
 
 module.exports = { handler };

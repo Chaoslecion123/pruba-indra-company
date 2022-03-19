@@ -1,16 +1,9 @@
-service: sls-zoluxiones
+service: indra-company
 
 custom:
   tableName: "films-table-${self:provider.stage}"
-  dynamodb:
-    start:
-      migrate: true
 
-plugins:
-  - serverless-offline
-  - serverless-dynamodb-local
-
-frameworkVersion: "2"
+frameworkVersion: "3.7.9"
 
 provider:
   name: aws
@@ -65,4 +58,3 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.tableName}
-

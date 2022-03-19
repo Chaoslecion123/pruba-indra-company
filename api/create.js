@@ -6,11 +6,6 @@ const middy = require("middy");
 const axios = require("axios");
 const util = require('../util.js');
 
-
-
-
-const { jsonBodyParser } = require("middy/middlewares");
-
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
 const tableName = process.env.FILMS_TABLE;
@@ -63,6 +58,6 @@ const addFilm = async (event) => {
   }
 };
 
-const handler = middy(addFilm).use(jsonBodyParser());
+const handler = middy(addFilm)
 
 module.exports = { handler };
