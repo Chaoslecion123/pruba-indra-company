@@ -4,7 +4,8 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +18,10 @@
     "serverless-http": "^2.7.0"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "serverless-dynamodb-local": "^0.2.39",
-    "serverless-offline": "^6.8.0"
+    "serverless-offline": "^6.8.0",
+    "sonarqube-scanner": "^2.8.1",
+    "ts-jest": "^27.1.3"
   }
 }
